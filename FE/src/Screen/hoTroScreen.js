@@ -8,7 +8,7 @@ import {
   Link,
 } from "react-router-dom";
 
-function SoTayScreen(props) {
+function HoTroScreen(props) {
   const location = useLocation().pathname;
   const urlList = location.split("/");
   // console.log(urlList[3]);
@@ -34,38 +34,25 @@ function SoTayScreen(props) {
   );
 
   return (
-    <div className="bg-white">
+    <div>
       <NavBarCpn location={location} />
-      <div className="mb-5 p-5"></div>
-      <div className="pt-2 pb-0"></div>
+
       <div className="fluid-container mt-3 mx-4 px-3 mt-5">
         <div className="text-center row">
-          <div style={{ fontSize: "70px" }}>
-            <div style={{ fontWeight: 700 }}>DUOYIN</div>
-          </div>
           {/* <div className="border "> */}
           <input
             type="text"
             className="shadow-sm p-3 mb-5 bg-white rounded col-lg-8 col-md-8 col-sm-12"
             placeholder="Nhập từ cần tìm"
-            style={{
-              transform: "translate(-50%,0)",
-              position: "relative",
-              left: "50%",
-            }}
             onChange={handleSearch}
           />
           {/* </div> */}
         </div>
       </div>
 
-      <div
-        className="row px-2 mx-0 col-12 
-        justify-content-between overflow-auto"
-        style={{ maxHeight: "400px" }}>
+      <div className="row px-2 mx-0 col-12">
         {filteredData.map((row, index) => (
-          <Link
-            to={location + "/" + index}
+          <div
             className="
             col-md-2 
             col-lg-1 
@@ -76,14 +63,13 @@ function SoTayScreen(props) {
             lh-20
             valign
             px-1"
-            style={{ maxWidth: "180px" }}
             key={index}>
             <Card>{row[1]}</Card>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
   );
 }
 
-export default SoTayScreen;
+export default HoTroScreen;

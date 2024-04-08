@@ -5,7 +5,6 @@ import BaiTapScreen from "./Screen/baiTapScreen";
 import TrangChuScreen from "./Screen/trangChu";
 import Data from "./Data/data";
 function App() {
-  const baseURL = "/Don2512/Web-Ni-Hao";
   return <Data />;
 }
 

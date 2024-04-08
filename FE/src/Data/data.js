@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "../Public/style.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+  Redirect,
+  Navigate,
+} from "react-router-dom";
 import axios from "axios";
+
+import Footer from "../Component/footerCpn";
 
 import SoTayScreen from "../Screen/soTayScreen";
 import BaiTapScreen from "../Screen/baiTapScreen";
 import TrangChuScreen from "../Screen/trangChu";
+import TongQuanScreen from "../Screen/tongQuan";
+import VideoScreen from "../Screen/video";
+import DienDanScreen from "../Screen/dienDan";
+import HoTroScreen from "../Screen/hoTroScreen";
+import SoTayDetailScreen from "../Screen/soTayDetailScreen";
 function Data() {
   const [soTayData, setSoTayData] = useState([]);
   const [baiTapData, setBaiTapData] = useState([]);
@@ -37,14 +52,50 @@ function Data() {
     };
     fetchData();
   }, []);
+
   return (
-    <Router>
-      <Routes>
-        <Route path={baseURL + "/soTay"} element={<SoTayScreen />} />
-        <Route path="/baiTap" element={BaiTapScreen} />
-        <Route path="/" element={TrangChuScreen} />
-      </Routes>
-    </Router>
+    <div style={{ minHeight: "100vh" }} className="bg-darkBlue">
+      <Router>
+        <Routes>
+          <Route path={baseURL + "/trangChu"} element={<TrangChuScreen />} />
+          <Route
+            path={baseURL + "/tongQuan"}
+            element={<TongQuanScreen data={soTayData} />}
+          />
+          <Route
+            path={baseURL + "/soTay"}
+            element={<SoTayScreen data={soTayData} />}
+          />
+          <Route
+            path={`${baseURL}/soTay/:id`}
+            element={<SoTayDetailScreen data={soTayData} />}
+          />
+
+          <Route
+            path={baseURL + "/baiTap"}
+            element={<BaiTapScreen data={soTayData} />}
+          />
+          <Route
+            path={baseURL + "/video"}
+            element={<VideoScreen data={soTayData} />}
+          />
+          <Route
+            path={baseURL + "/dienDan"}
+            element={<DienDanScreen data={soTayData} />}
+          />
+          <Route
+            path={baseURL + "/hoTro"}
+            element={<HoTroScreen data={soTayData} />}
+          />
+          <Route
+            path={baseURL + "/baiTap/{id}"}
+            element={<HoTroScreen data={soTayData} />}
+          />
+          {/* <Route path="*" element={<Navigate to={baseURL + "/trangChu"} />} /> */}
+        </Routes>
+      </Router>
+      <Footer />
+    </div>
   );
 }
 
