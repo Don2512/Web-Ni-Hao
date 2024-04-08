@@ -7,16 +7,26 @@ import {
   useLocation,
   Link,
 } from "react-router-dom";
-
-const backgroundImg = require("../Public/Assets/trangChuBg.png");
 function TrangChuScreen(props) {
-  const location = useLocation().pathname;
+  const config = {
+    ...props.config,
+    location: useLocation().pathname,
+    headerHeight: window.innerWidth < 1000 ? 100 : 0,
+    backgroundImg: require("../Public/Assets/trangChuBg.png"),
+    imgMaxHeight: window.innerWidth < 1000 ? "350px" : "auto",
+  };
   return (
-    <div>
-      <NavBarCpn location={location} />
-      <div className="p-5 bg-darkBlue"></div>
-      <div className="p-5 bg-darkBlue"></div>
-      <img src={backgroundImg} className="img-fluid" alt="Logo" />
+    <div className="bg-white">
+      <NavBarCpn config={config} />
+      <div style={{ height: config.headerHeight }}></div>
+      <div>
+        <img
+          src={config.backgroundImg}
+          className="object-fit-cover"
+          style={{ width: "100%", height: config.imgMaxHeight }}
+          alt="Logo"
+        />
+      </div>
     </div>
   );
 }
