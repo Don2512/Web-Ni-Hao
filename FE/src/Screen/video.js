@@ -8,7 +8,7 @@ import {
   Link,
 } from "react-router-dom";
 
-function BaiTapScreen(props) {
+function VideoScreen(props) {
   const location = useLocation().pathname;
   const urlList = location.split("/");
   // console.log(urlList[3]);
@@ -72,4 +72,4 @@ function BaiTapScreen(props) {
   );
 }
 
-export default BaiTapScreen;
+export default VideoScreen;
