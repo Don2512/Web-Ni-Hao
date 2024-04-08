@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/Web-Ni-Hao/static/js/main.0c93f95e.js",
+    "main.js": "/Web-Ni-Hao/static/js/main.a827dc69.js",
     "static/js/453.ed3810f9.chunk.js": "/Web-Ni-Hao/static/js/453.ed3810f9.chunk.js",
     "index.html": "/Web-Ni-Hao/index.html",
-    "main.0c93f95e.js.map": "/Web-Ni-Hao/static/js/main.0c93f95e.js.map",
+    "main.a827dc69.js.map": "/Web-Ni-Hao/static/js/main.a827dc69.js.map",
     "453.ed3810f9.chunk.js.map": "/Web-Ni-Hao/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.0c93f95e.js"
+    "static/js/main.a827dc69.js"
   ]
 }
