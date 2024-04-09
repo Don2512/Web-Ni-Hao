@@ -17,8 +17,6 @@ import BaiTapScreen from "../Screen/baiTapScreen";
 import TrangChuScreen from "../Screen/trangChu";
 import TongQuanScreen from "../Screen/tongQuan";
 import VideoScreen from "../Screen/video";
-import DienDanScreen from "../Screen/dienDan";
-import HoTroScreen from "../Screen/hoTroScreen";
 import SoTayDetailScreen from "../Screen/soTayDetailScreen";
 function Data() {
   const [soTayData, setSoTayData] = useState([]);
@@ -73,24 +71,16 @@ function Data() {
 
           <Route
             path={"/baiTap"}
-            element={<BaiTapScreen data={soTayData} />}
+            element={<BaiTapScreen data={baiTapData} />}
           />
           <Route
             path={"/video"}
             element={<VideoScreen data={soTayData} />}
           />
-          <Route
-            path={"/dienDan"}
-            element={<DienDanScreen data={soTayData} />}
-          />
-          <Route
-            path={"/hoTro"}
-            element={<HoTroScreen data={soTayData} />}
-          />
-          <Route
+          {/* <Route
             path={"/baiTap/{id}"}
             element={<HoTroScreen data={soTayData} />}
-          />
+          /> */}
           <Route path="*" element={<Navigate to={"/trangChu"} />} />
         </Routes>
       </HashRouter>

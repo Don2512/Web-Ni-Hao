@@ -17,8 +17,8 @@ const NavBarCpn = (props) => {
     { name: "笔记本", path: "soTay" },
     { name: "练习", path: "baiTap" },
     { name: "视频", path: "video" },
-    { name: "论坛", path: "dienDan" },
-    { name: "帮助", path: "hoTro" },
+    // { name: "论坛", path: "dienDan" },
+    // { name: "帮助", path: "hoTro" },
   ];
   const handleClick = (path) => {
 
@@ -56,6 +56,7 @@ const NavBarCpn = (props) => {
                   to={
                     location.split("/").slice(0, 1).join("/") + "/" + item.path
                   }
+
                   style={{ textDecoration: "none" }}>
                   <div className="text-white text-decoration-none">
                     {item.name}
@@ -63,6 +64,35 @@ const NavBarCpn = (props) => {
                 </Link>
               </div>
             ))}
+
+
+
+              <div
+                className={
+                  "text-white col-lg col-md-3 col-sm-3 px-2 border-start border-white lh-20 valign hover-mouse hover-bold hover-bigger"
+                }
+                style={{ maxWidth: "100px" }}>
+                <a href = "https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL" 
+                  style={{ textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
+                  <div className="text-white text-decoration-none">
+                    {"论坛"}
+                  </div>
+                </a>
+              </div>
+  
+
+              <div
+                className={
+                  "text-white col-lg col-md-3 col-sm-3 px-2 border-start border-white lh-20 valign hover-mouse hover-bold hover-bigger"
+                }
+                style={{ maxWidth: "100px" }}>
+                <a href = "https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL" 
+                  style={{ textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
+                  <div className="text-white text-decoration-none">
+                    {"帮助"}
+                  </div>
+                </a>
+              </div>
           </div>
         </div>
       </div>
