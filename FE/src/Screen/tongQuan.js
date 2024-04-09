@@ -7,66 +7,78 @@ import {
   useLocation,
   Link,
 } from "react-router-dom";
-
 function TongQuanScreen(props) {
-  const location = useLocation().pathname;
-  const urlList = location.split("/");
-  // console.log(urlList[3]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const data = props.data;
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+  const screenWidth = window.innerWidth;
+  const config = {
+    ...props.config,
+    location: useLocation().pathname,
+    headerHeight: screenWidth < 1000 ? 160 : 120,
+    duoyinFontSize: screenWidth < 1000 ? "30px" : "80px",
+    duoyinFontWeight: screenWidth < 1000 ? 700 : 700,
+    soTayPng: require("../Public/Assets/soTay.png"),
+    baiTapPng: require("../Public/Assets/baiTap.png"),
+    videoPng: require("../Public/Assets/video.png"),
+    imgHeight: screenWidth < 1000 ? "130px" : "500px",
   };
-  const handleClick = (event) => {
-    <Link to="/" />;
-  };
-  const Card = ({ children }) => {
-    return (
-      <div className="card mb-3 mx-0" onClick={handleClick}>
-        <div className="card-body">
-          <p className="card-text text-center">{children}</p>
-        </div>
-      </div>
-    );
-  };
-  const filteredData = data.filter((row) =>
-    row[1].toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
-    <div>
-      <NavBarCpn location={location} />
-
-      <div className="fluid-container mt-3 mx-4 px-3 mt-5">
-        <div className="text-center row">
-          {/* <div className="border "> */}
-          <input
-            type="text"
-            className="shadow-sm p-3 mb-5 bg-white rounded col-lg-8 col-md-8 col-sm-12"
-            placeholder="Nhập từ cần tìm"
-            onChange={handleSearch}
-          />
-          {/* </div> */}
+    <div className="bg-darkRed container-fluid px-0 text-white">
+      <NavBarCpn config={config} />
+      <div style={{ height: config.headerHeight }}></div>
+      <div
+        className="text-center m-0 p-0"
+        style={{
+          fontSize: config.duoyinFontSize,
+          fontWeight: config.duoyinFontWeight,
+        }}>
+        DUOYIN
+      </div>
+      <div className="row justify-content-center px-4 m-0 p-0">
+        <div className="col-lg-6 col-12 self-align-center ">
+          <div style={{ textAlign: "justify" }}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting.
+          </div>
         </div>
       </div>
 
-      <div className="row px-2 mx-0 col-12">
-        {filteredData.map((row, index) => (
-          <div
-            className="
-            col-md-2 
-            col-lg-1 
-            col-sm-3
-            hover-bold 
-            hover-bigger 
-            hover-mouse
-            lh-20
-            valign
-            px-1"
-            key={index}>
-            <Card>{row[1]}</Card>
+      <div className="fs-1 fw-bold mb-5 text-center mt-5 pt-5">
+        Các tính năng nổi bật
+      </div>
+      <div className="row mx-0 justify-content-center">
+        <div className="col-lg-10 col-12 self-align-center">
+          <div className="pb-5">
+            <div className="row justify-content-start px-0 mx-0">
+              <div className="col-auto text-center">
+                <img
+                  src={config.soTayPng}
+                  style={{ height: config.imgHeight }}
+                />
+                <div className="fw-bold fs-2">Sổ tay</div>
+              </div>
+            </div>
+            <div className="row justify-content-end px-0 mx-0">
+              <div className="col-auto text-center">
+                <img
+                  src={config.baiTapPng}
+                  style={{ height: config.imgHeight }}
+                />
+                <div className="fw-bold fs-2">Bài tập</div>
+              </div>
+            </div>
+            <div className="row justify-content-start px-0 mx-0">
+              <div className="col-auto text-center">
+                <img
+                  src={config.videoPng}
+                  style={{ height: config.imgHeight }}
+                />
+                <div className="fw-bold fs-2">Video</div>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

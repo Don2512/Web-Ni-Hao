@@ -1,5 +1,5 @@
 import NavBarCpn from "../Component/navBarCpn";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -7,119 +7,112 @@ import {
   useLocation,
   Link,
 } from "react-router-dom";
-
-
-
-
 function SoTayScreen(props) {
-  const location = useLocation().pathname;
-  const urlList = location.split("/");
-  // console.log(urlList[3]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const data = props.data;
-
-
-
-  function getCookie(name) {
-    let cookieArray = document.cookie.split(';');
-    for(let i = 0; i < cookieArray.length; i++) {
-      let cookiePair = cookieArray[i].split('=');
-      if(name === cookiePair[0].trim()) {
-        return decodeURIComponent(cookiePair[1]);
-      }
-    }
-    return null;
-  }
-  var myArray = JSON.parse(getCookie('myArray'));
-  let fullArray = Array.from({ length: data.length }, (_, i) => (i + 1).toString());
-  let missingNumbers = fullArray.filter(num => !myArray.includes(num));
-  missingNumbers = missingNumbers.concat(myArray);
-  missingNumbers.reverse();
-  
-
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+  const config = {
+    ...props.config,
+    location: useLocation().pathname,
+    data: props.data,
+    showWordHeight: window.innerWidth < 1000 ? 400 : 550,
+    headerHeight: window.innerWidth < 1000 ? 170 : 100,
   };
-
-
-  
-
-
-  const handleClick = (event) => {
-    <Link to="/" />;
-  };
-  const Card = ({ children }) => {
+  const Card = ({ children, className }) => {
     return (
-      <div className="card mb-3 mx-0" onClick={handleClick}>
-        <div className="card-body">
+      <div className="card mb-3 mx-0 rounded-0 shadow-sm border-0">
+        <div className={"card-body " + className}>
           <p className="card-text text-center">{children}</p>
         </div>
       </div>
     );
   };
-  const filteredData = data.filter((row) =>
-    row[1].toLowerCase().includes(searchTerm.toLowerCase())
+  function getCookie(name) {
+    let cookieArray = document.cookie.split(";");
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookiePair = cookieArray[i].split("=");
+      if (name === cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+      }
+    }
+    return null;
+  }
+  const [searchWord, setSearchWord] = useState("");
+
+  var viewedWordList = JSON.parse(getCookie("viewedWordList"));
+  if (!viewedWordList) viewedWordList = [];
+  var freshDataList = config.data.filter(
+    (num) => !viewedWordList.includes(num[config.idIndex])
+  );
+  freshDataList = freshDataList.sort((a, b) =>
+    a[config.amDoc_1_Index].localeCompare(b[config.amDoc_1_Index])
   );
 
-  console.log(data);
-  filteredData[0] && console.log(filteredData[0][0]);
+  var viewedDataList = [];
+  viewedWordList.map((pushItem, index) => {
+    var data = config.data.find((item) => item[config.idIndex] === pushItem);
+    if (data) viewedDataList.push(data);
+  });
+
+  const handleSearch = (event) => {
+    setSearchWord(event.target.value);
+  };
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
+  console.log(window.innerWidth);
   return (
-    <div className="bg-white">
-      <NavBarCpn location={location} />
-      <div className="mb-5 p-5"></div>
-      <div className="pt-2 pb-0"></div>
+    <div className="bg-darkRed mh-100">
+      <NavBarCpn config={config} />
+      <div style={{ height: config.headerHeight }}></div>
       <div className="fluid-container mt-3 mx-4 px-3 mt-5">
-        <div className="text-center row">
+        <div className="text-center row text-white">
           <div style={{ fontSize: "70px" }}>
             <div style={{ fontWeight: 700 }}>DUOYIN</div>
           </div>
-          {/* <div className="border "> */}
           <input
             type="text"
-            className="shadow-sm p-3 mb-5 bg-white rounded col-lg-8 col-md-8 col-sm-12"
+            className="shadow-sm p-3 mb-5 bg-white rounded-0 border-0 col-lg-8 col-md-8 col-sm-12 text-center"
             placeholder="Nhập từ cần tìm"
             style={{
               transform: "translate(-50%,0)",
               position: "relative",
               left: "50%",
             }}
-            onChange={handleSearch}
+            onChange={(event) => handleSearch(event)}
           />
-          {/* </div> */}
         </div>
       </div>
-
-      <div
-        className="row px-2 mx-0 col-12 
-        justify-content-between overflow-auto"
-        style={{ maxHeight: "400px" }}>
-        
-        {filteredData.length !== 1 ? (
-          missingNumbers.map((index) => (
-            filteredData[index] && (
-              <Link
-                to={`${location}/${index - 1}`}
-                className="col-md-2 col-lg-1 col-sm-3 hover-bold hover-bigger hover-mouse lh-20 valign px-1"
-                style={{ maxWidth: '180px' }}
-                key={index - 1}
-              >
-                <Card>{filteredData[index][1]}</Card>
-              </Link>
-            )
-          ))
-        ) : filteredData[0] && (
-          <Link
-            to={`${location}/${filteredData[0][0] - 1}`}
-            className="col-md-2 col-lg-1 col-sm-3 hover-bold hover-bigger hover-mouse lh-20 valign px-1"
-            style={{ maxWidth: '180px' }}
-            key={filteredData[0][0] - 1}
-          >
-            <Card>{filteredData[0][1]}</Card>
-
-          </Link>
-        )}
-
+      <div className="row mx-0 justify-content-center">
+        <div className="col-lg-10 col-12">
+          <div
+            className="row px-2 mx-0 col-12 
+            justify-content-between overflow-auto"
+            style={{ maxHeight: config.showWordHeight }}>
+            {viewedDataList
+              .filter((data) => data[config.wordIndex].includes(searchWord))
+              .map((item, index) => (
+                <Link
+                  to={`${config.location}/${item[config.idIndex]}`}
+                  className="col-md-2 col-lg-1 col-3 hover-bold hover-bigger2 hover-mouse lh-20 valign px-1 fs-20"
+                  style={{ maxWidth: "180px", textDecoration: "none" }}
+                  key={index - 1}>
+                  <Card className="bg-darkBlue text-white">
+                    {item[config.wordIndex]}
+                  </Card>
+                </Link>
+              ))}
+            {freshDataList
+              .filter((data) => data[config.wordIndex].includes(searchWord))
+              .map((item, index) => (
+                <Link
+                  onClick={() => handleClick()}
+                  to={`${config.location}/${item[config.idIndex]}`}
+                  className="col-md-2 col-lg-1 col-3 hover-bold hover-bigger2 hover-mouse lh-20 valign px-1 fs-20"
+                  style={{ maxWidth: "180px", textDecoration: "none" }}
+                  key={index - 1}>
+                  <Card className="">{item[config.wordIndex]}</Card>
+                </Link>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );
