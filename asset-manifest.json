@@ -1,17 +1,20 @@
 {
   "files": {
-    "main.css": "/Web-Ni-Hao/static/css/main.069af623.css",
-    "main.js": "/Web-Ni-Hao/static/js/main.220cf957.js",
-    "static/js/453.5c3132bc.chunk.js": "/Web-Ni-Hao/static/js/453.5c3132bc.chunk.js",
-    "static/media/trangChuBg.png": "/Web-Ni-Hao/static/media/trangChuBg.bc512c08d260d72e9b31.png",
-    "static/media/logo.png": "/Web-Ni-Hao/static/media/logo.edbd33662005340caccf.png",
-    "index.html": "/Web-Ni-Hao/index.html",
-    "main.069af623.css.map": "/Web-Ni-Hao/static/css/main.069af623.css.map",
-    "main.220cf957.js.map": "/Web-Ni-Hao/static/js/main.220cf957.js.map",
-    "453.5c3132bc.chunk.js.map": "/Web-Ni-Hao/static/js/453.5c3132bc.chunk.js.map"
+    "main.css": "/chineseDictionary/static/css/main.268428f6.css",
+    "main.js": "/chineseDictionary/static/js/main.a5dddcac.js",
+    "static/js/453.f4f9c2e3.chunk.js": "/chineseDictionary/static/js/453.f4f9c2e3.chunk.js",
+    "static/media/trangChuBg.png": "/chineseDictionary/static/media/trangChuBg.bc512c08d260d72e9b31.png",
+    "static/media/baiTap.png": "/chineseDictionary/static/media/baiTap.f3200961ef9dc5178789.png",
+    "static/media/soTay.png": "/chineseDictionary/static/media/soTay.f50afcb33c1717ad23f0.png",
+    "static/media/video.png": "/chineseDictionary/static/media/video.08997f54cd9b1a9fb996.png",
+    "static/media/logo.png": "/chineseDictionary/static/media/logo.edbd33662005340caccf.png",
+    "index.html": "/chineseDictionary/index.html",
+    "main.268428f6.css.map": "/chineseDictionary/static/css/main.268428f6.css.map",
+    "main.a5dddcac.js.map": "/chineseDictionary/static/js/main.a5dddcac.js.map",
+    "453.f4f9c2e3.chunk.js.map": "/chineseDictionary/static/js/453.f4f9c2e3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.069af623.css",
-    "static/js/main.220cf957.js"
+    "static/css/main.268428f6.css",
+    "static/js/main.a5dddcac.js"
   ]
 }
