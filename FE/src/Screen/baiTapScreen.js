@@ -22,7 +22,6 @@ function CauBaiTap1Screen({text, charToHighlight })
   );
 }
 
-
 function CauBaiTap2Screen({text})
 {
   function isHanCharacter(char) {
@@ -60,8 +59,6 @@ function CauBaiTap2Screen({text})
   );
 }
 
-
-
 function CauBaiTap3Screen({text})
 {
   const words = text.split("A.");
@@ -90,7 +87,6 @@ function CauBaiTap3Screen({text})
   );
 }
 
-
 function CauBaiTap4Screen({text })
 {
   function isHanCharacter(char) {
@@ -114,6 +110,8 @@ function BaiTapScreen(props) {
   const [Type, setType] = useState(0);
   const [DataRandom, setDataRandom] = useState([]);
   const [Count, setCount] = useState(0);
+
+
 
   function getCookie(name) {
     let cookieArray = document.cookie.split(";");
@@ -173,26 +171,48 @@ function BaiTapScreen(props) {
     headerHeight: window.innerWidth < 1000 ? 170 : 100,
   };
 
-  async function Check(result)
-  {
-      var count = 0;
+  // async function Check(result)
+  // {
+  //     var count = 0;
 
-      for(var i = 0; i < result.length; i++)
-      { 
-        const index = result[i][0];
-        result[i][2] = props.data[index];
-        result[i][3] = false;
-        if(props.data[index][2 * Type + 1] === result[i][1])
-        {
-          count ++;
-          result[i][3] = true;
-        }
-      }
+  //     for(var i = 0; i < result.length; i++)
+  //     { 
+  //       const index = result[i][0];
+  //       result[i][2] = props.data[index];
+  //       result[i][3] = false;
+  //       if(props.data[index][2 * Type + 1] === result[i][1])
+  //       {
+  //         count ++;
+  //         result[i][3] = true;
+  //       }
+  //     }
 
-      setCount(count);
-      setDataRandom(result);
-    }
+  //     setCount(count);
+  //     setDataRandom(result);
+  //   }
 
+  const [questions, setQuestions] = useState([
+    { id: 1, questionText: '1 + 1 bằng mấy?', answer: '2' },
+    // Thêm các câu hỏi khác tại đây
+  ]);
+  const [responses, setResponses] = useState({});
+
+  const handleInputChange = (questionId, value) => {
+    setResponses(prevResponses => ({
+      ...prevResponses,
+      [questionId]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Kiểm tra đáp án đúng
+    const correctAnswers = questions.filter(q => responses[q.id] === q.answer);
+    // Tính điểm
+    const score = correctAnswers.length;
+    // Hiển thị kết quả hoặc xử lý tiếp theo
+    alert(`Bạn đã trả lời đúng ${score} trên tổng số ${questions.length} câu hỏi.`);
+  };
   return (
   <>
     <div className="bg-white">
@@ -211,9 +231,28 @@ function BaiTapScreen(props) {
           <button type="button" className="col btn btn-primary" onClick={() => Onclick(3)}>Loại 3</button>
           <button type="button" className="col btn btn-primary" onClick={() => Onclick(4)}>Loại 4</button>
           </div>
-
+                    <form onSubmit={handleSubmit}>
+                    {questions.map((question) => (
+                      <div key={question.id}>
+                        <div>{question.questionText}</div>
+                        <input
+                          type="text"
+                          name={`question_${question.id}`}
+                          value={responses[question.id] || ''}
+                          onChange={(e) => handleInputChange(question.id, e.target.value)}
+                        />
+                      </div>
+                    ))}
+                    <button type="submit">Nộp bài</button>
+                  </form>
         </div>
+        
       </div>
+
+      
+
+
+
 
       {(Type === 1) && (
           <div>
