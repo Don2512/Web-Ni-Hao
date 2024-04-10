@@ -9,7 +9,6 @@ const NavBarCpn = (props) => {
     titleFooterFontSize: window.innerWidth < 1000 ? "17px" : "25px",
   };
   const banQuyenList = [
-    { name: "Giáo viên hướng dẫn: ThS Đoàn Thị Thanh Nhàn" },
     {
       name: 'Bản quyền thuộc về nhóm sinh viên nghiên cứu đề tài "Từ nghiên cứu về thực trạng sử dụng chữ Hán đa âm của sinh viên khoa Tiếng Trung định hướng xây dựng hệ thống ngữ liệu trực tuyến tích hợp sổ tay từ vựng trực tuyến và bài tập vận dụng chữ Hán đa âm"',
     },

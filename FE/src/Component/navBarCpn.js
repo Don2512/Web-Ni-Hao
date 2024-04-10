@@ -45,8 +45,8 @@ const NavBarCpn = (props) => {
             alt="Logo"
           />
         </div>
-        <div className="col-lg-6 col-10">
-          <div className="row pt-3 justify-content-end">
+        <div className="col-lg-6 col-10 justify-content-center">
+          <div className="row pt-3 justify-content-center">
             {navList.map((item, index) => (
               <div
                 key={index}
@@ -70,34 +70,33 @@ const NavBarCpn = (props) => {
               </div>
             ))}
 
+            <div
+              className={
+                "text-white col-lg col-md-3 col-sm-3 px-2 border-start border-white lh-20 valign hover-mouse hover-bold hover-bigger"
+              }
+              style={{ maxWidth: "100px" }}>
+              <a
+                href="https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL"
+                style={{ textDecoration: "none" }}
+                target="_blank"
+                rel="noopener noreferrer">
+                <div className="text-white text-decoration-none">{"论坛"}</div>
+              </a>
+            </div>
 
-
-              <div
-                className={
-                  "text-white col-lg col-md-3 col-sm-3 px-2 border-start border-white lh-20 valign hover-mouse hover-bold hover-bigger"
-                }
-                style={{ maxWidth: "100px" }}>
-                <a href = "https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL" 
-                  style={{ textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-                  <div className="text-white text-decoration-none">
-                    {"论坛"}
-                  </div>
-                </a>
-              </div>
-  
-
-              <div
-                className={
-                  "text-white col-lg col-md-3 col-sm-3 px-2 border-start border-white lh-20 valign hover-mouse hover-bold hover-bigger"
-                }
-                style={{ maxWidth: "100px" }}>
-                <a href = "https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL" 
-                  style={{ textDecoration: "none" }} target="_blank" rel="noopener noreferrer">
-                  <div className="text-white text-decoration-none">
-                    {"帮助"}
-                  </div>
-                </a>
-              </div>
+            <div
+              className={
+                "text-white col-lg col-md-3 col-sm-3 px-2 border-start border-white lh-20 valign hover-mouse hover-bold hover-bigger"
+              }
+              style={{ maxWidth: "100px" }}>
+              <a
+                href="https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL"
+                style={{ textDecoration: "none" }}
+                target="_blank"
+                rel="noopener noreferrer">
+                <div className="text-white text-decoration-none">{"帮助"}</div>
+              </a>
+            </div>
           </div>
         </div>
       </div>

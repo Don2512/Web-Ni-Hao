@@ -14,22 +14,28 @@ import SoTayDetailScreen from "../Screen/soTayDetailScreen";
 function Data() {
   const [soTayData, setSoTayData] = useState([]);
   const [baiTapData, setBaiTapData] = useState([]);
+  const [wordDrawDrive, setWordDrawDrive] = useState([]);
   const config = {
     pageIndex: 2,
     wordIndex: 1,
-    amDoc_1_Index: 4,
+    amDoc_1_Index: 5,
     idIndex: 0,
     amDocLength: 4,
     soTayDataStartRow: 1,
     baiTapDataStartRow: 1,
     soNetVeIndex: 2,
     soAmDocIndex: 3,
+    API_Key: "AIzaSyBXm1shuz4qwkvMsNA1hnb4aGVxi2i6xbE",
+    wordDrawFolderDriveId: "1pKB7Ww60X5FwhR-bSR8yzVHGG01MeOgE",
+    baseLinkDrive: "https://drive.google.com/thumbnail?id=",
+    googleSheetId: "1fSWPkmCz8zNjGquFN0yIOpP_p578t0ij-RERcHxoDr0",
   };
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://sheets.googleapis.com/v4/spreadsheets/1fSWPkmCz8zNjGquFN0yIOpP_p578t0ij-RERcHxoDr0/values/soTay?key=AIzaSyAQj26vYu-gkIeBTTiwinN3VPEYGfLQ-Y8"
+          `https://sheets.googleapis.com/v4/spreadsheets/${config.googleSheetId}/values/soTay?key=` +
+            config.API_Key
         );
         console.log(response);
         setSoTayData(
@@ -42,7 +48,8 @@ function Data() {
 
       try {
         const response = await axios.get(
-          "https://sheets.googleapis.com/v4/spreadsheets/1fSWPkmCz8zNjGquFN0yIOpP_p578t0ij-RERcHxoDr0/values/baiTap?key=AIzaSyAQj26vYu-gkIeBTTiwinN3VPEYGfLQ-Y8"
+          `https://sheets.googleapis.com/v4/spreadsheets/${config.googleSheetId}/values/baiTap?key=` +
+            config.API_Key
         );
         console.log(response);
         setBaiTapData(response.data.values.splice(config.baiTapDataStartRow));
@@ -76,12 +83,9 @@ function Data() {
 
           <Route
             path={"/baiTap"}
-            element={<BaiTapScreen data={baiTapData}  />}
+            element={<BaiTapScreen data={baiTapData} />}
           />
-          <Route
-            path={"/video"}
-            element={<VideoScreen data={soTayData} />}
-          />
+          <Route path={"/video"} element={<VideoScreen data={soTayData} />} />
           {/* <Route
             path={"/baiTap/{id}"}
             element={<HoTroScreen data={soTayData} />}
