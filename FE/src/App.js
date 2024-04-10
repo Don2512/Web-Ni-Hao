@@ -9,9 +9,9 @@ function App() {
 
   var allCookies = document.cookie;
   // Kiểm tra xem cookie có tồn tại không
-  var existingCookieValue = allCookies.split('; ').find(row => row.startsWith("myArray="));
+  var existingCookieValue = allCookies.split('; ').find(row => row.startsWith("viewedWordList="));
   if (! existingCookieValue)
-    document.cookie = "myArray=" + jsonStr + "; expires=" + new Date(Date.now() + 7 * 864e5).toUTCString() + "; path=/";
+    document.cookie = "viewedWordList=" + jsonStr + "; expires=" + new Date(Date.now() + 7 * 864e5).toUTCString() + "; path=/";
 
   return <Data />;
 }
