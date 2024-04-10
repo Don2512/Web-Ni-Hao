@@ -12,8 +12,8 @@ function SoTayScreen(props) {
     ...props.config,
     location: useLocation().pathname,
     data: props.data,
-    showWordHeight: window.innerWidth < 1000 ? 400 : 550,
-    headerHeight: window.innerWidth < 1000 ? 170 : 100,
+    showWordHeight: window.innerWidth < 1000 ? 480 : 550,
+    headerHeight: window.innerWidth < 1000 ? 90 : 100,
   };
   const Card = ({ children, className }) => {
     return (
