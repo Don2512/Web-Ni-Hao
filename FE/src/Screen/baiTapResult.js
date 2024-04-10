@@ -110,61 +110,17 @@ function CauBaiTap4Screen({text })
 }
 
 function BaiTapScreen(props) {
-  const location = useLocation().pathname;
-  const [Type, setType] = useState(0);
-  const [DataRandom, setDataRandom] = useState([]);
-  const [Count, setCount] = useState(0);
+  const Type = props.type;
+  /*
+   * result[0] : ID
+   * result[1] : name
+   * result[2] : KQ
+   * result[3] : DA
+   * result[4] : True/Flase
+  */
+  const result = props.result;
+  const count = props.count;
 
-  function getCookie(name) {
-    let cookieArray = document.cookie.split(";");
-    for (let i = 0; i < cookieArray.length; i++) {
-      let cookiePair = cookieArray[i].split("=");
-      if (name === cookiePair[0].trim()) {
-        return decodeURIComponent(cookiePair[1]);
-      }
-    }
-    return null;
-  }
-
-
-  function Onclick(type)  {
-    // Your logic here'
-    var viewedWordList = JSON.parse(getCookie("viewedWordList"));
-    var randomIndices = [];
-    if (viewedWordList.length > 20)
-    {
-      randomIndices = viewedWordList.slice(0, 20);
-      viewedWordList = viewedWordList.slice(20);
-      var jsonStr = JSON.stringify(viewedWordList);
-      document.cookie =
-        "viewedWordList=" +
-        jsonStr +
-        "; expires=" +
-        new Date(Date.now() + 7 * 864e5).toUTCString() +
-        "; path=/";
-    }
-    else
-    {
-      randomIndices = viewedWordList;
-      document.cookie =
-        "viewedWordList=" +
-        "; expires=" +
-        new Date(Date.now() + 7 * 864e5).toUTCString() +
-        "; path=/";
-    }
-    console.log(randomIndices);
-    while (randomIndices.length < 20) {
-        const randomIndex =  (Math.floor(Math.random() * props.data.length));
-        if (!randomIndices.includes(randomIndex)) {
-            randomIndices.push(randomIndex);
-        }
-    }
-    console.log(randomIndices);
-
-    const dataRandom = randomIndices.map(index => props.data[parseInt(index) - 1] ? props.data[parseInt(index) - 1] : 0);
-    setType(type);
-    setDataRandom(dataRandom);
-  }
   const config = {
     ...props.config,
     location: useLocation().pathname,
@@ -173,25 +129,7 @@ function BaiTapScreen(props) {
     headerHeight: window.innerWidth < 1000 ? 170 : 100,
   };
 
-  async function Check(result)
-  {
-      var count = 0;
 
-      for(var i = 0; i < result.length; i++)
-      { 
-        const index = result[i][0];
-        result[i][2] = props.data[index];
-        result[i][3] = false;
-        if(props.data[index][2 * Type + 1] === result[i][1])
-        {
-          count ++;
-          result[i][3] = true;
-        }
-      }
-
-      setCount(count);
-      setDataRandom(result);
-    }
 
   return (
   <>
@@ -205,22 +143,16 @@ function BaiTapScreen(props) {
           <div style={{ fontSize: "70px" }}>
             <div style={{ fontWeight: 700 }}>BÀI TẬP</div>
           </div>
-          <div class="container">
-          <button type="button" className="col btn btn-primary" onClick={() => Onclick(1)}>Loại 1</button>
-          <button type="button" className="col btn btn-primary" onClick={() => Onclick(2)}>Loại 2</button>
-          <button type="button" className="col btn btn-primary" onClick={() => Onclick(3)}>Loại 3</button>
-          <button type="button" className="col btn btn-primary" onClick={() => Onclick(4)}>Loại 4</button>
-          </div>
 
         </div>
       </div>
 
       {(Type === 1) && (
           <div>
-          {DataRandom.map((item, index) => (
+          {result.map((item, index) => (
             <React.Fragment key={index}>
               {index + 1}. {item[Type * 2] && <CauBaiTap1Screen text={item[1]} charToHighlight={item[Type * 2]} />}
-              <p style={{color: 'red', fontWeight: 'bold'}}>{item[0]}: _______</p>
+              <p style={{color: 'red', fontWeight: 'bold'}}>{item[2]}</p>
             </React.Fragment>
           ))}
         </div>
