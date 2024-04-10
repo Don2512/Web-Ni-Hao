@@ -2,7 +2,7 @@
   "name": "chineseDictionary",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DatNguyen60.github.io/chineseDictionary",
+
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
