@@ -90,7 +90,7 @@ const NavBarCpn = (props) => {
               }
               style={{ maxWidth: "100px" }}>
               <a
-                href="https://www.facebook.com/profile.php?id=61557907629340&mibextid=ZbWKwL"
+                href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=duoyinzi99@gmail.com"
                 style={{ textDecoration: "none" }}
                 target="_blank"
                 rel="noopener noreferrer">

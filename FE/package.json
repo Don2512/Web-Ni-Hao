@@ -1,8 +1,8 @@
 {
-  "name": "chineseDictionary",
+  "name": "Web-Ni-Hao",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DatNguyen60.github.io/chineseDictionary",
+  "homepage": "https://don2512.github.io/Web-Ni-Hao/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

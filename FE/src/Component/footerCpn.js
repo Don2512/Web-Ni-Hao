@@ -14,7 +14,7 @@ const NavBarCpn = (props) => {
     },
     { name: "Khoa Tiếng Trung Trường Đại học Sư phạm Thành phố Hồ Chí Minh" },
     {
-      name: "Website được xây dựng và phát triển bởi các sinh viên Đại học Bách Khoa Thành phố Hồ Chí Minh",
+      name: "Website được xây dựng và phát triển bởi Đào Duy Long, Nguyễn Đức Đạt, Bùi Lê Văn",
     },
   ];
   const lienHeList = [
