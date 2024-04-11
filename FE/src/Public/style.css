@@ -18,3 +18,13 @@
 .c-darkBlue{color: #0B4875}
 
 .fs-20{font-size: 24px}
+
+.b-darkBlue {border: 1px solid #0B4875}
+.b-darkRed {border-color: #D2373F}
+.b-gray {border-color: gray}
+.centerEle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

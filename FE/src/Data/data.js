@@ -24,7 +24,11 @@ function Data() {
     soTayDataStartRow: 1,
     baiTapDataStartRow: 1,
     soNetVeIndex: 2,
-    soAmDocIndex: 3,
+    soAmDocIndex: 4,
+    linkGifIndex: 3,
+    soCauBaiTap: 20,
+    dataBaiTapRows: 100,
+    dataSoTayRows: 100,
     API_Key: "AIzaSyBXm1shuz4qwkvMsNA1hnb4aGVxi2i6xbE",
     wordDrawFolderDriveId: "1pKB7Ww60X5FwhR-bSR8yzVHGG01MeOgE",
     baseLinkDrive: "https://drive.google.com/thumbnail?id=",
@@ -83,7 +87,7 @@ function Data() {
 
           <Route
             path={"/baiTap"}
-            element={<BaiTapScreen data={baiTapData} />}
+            element={<BaiTapScreen data={baiTapData} config={config} />}
           />
           <Route path={"/video"} element={<VideoScreen data={soTayData} />} />
           {/* <Route

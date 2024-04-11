@@ -78,7 +78,7 @@ const NavBarCpn = (props) => {
           <div
             className="row justify-content-center"
             style={{ textAlign: "justify" }}>
-            <div className="col-lg-10">
+            <div className="col-lg-5">
               <div
                 className="text-white fw-bold"
                 style={{ fontSize: config.titleFooterFontSize }}>

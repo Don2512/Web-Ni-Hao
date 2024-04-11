@@ -8,19 +8,31 @@ import {
   Link,
 } from "react-router-dom";
 
-
 function BaiTapScreen(props) {
   const [Type, setType] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [Check, setCheck] = useState(false);
   const [responses, setResponses] = useState({});
+  const [result, setResult] = useState("");
   const config = {
     ...props.config,
     location: useLocation().pathname,
     data: props.data,
-    showWordHeight: window.innerWidth < 1000 ? 400 : 550,
-    headerHeight: window.innerWidth < 1000 ? 170 : 100,
+    showQuestionsHeight: window.innerWidth < 1000 ? 550 : 650,
+    headerHeight: window.innerWidth < 1000 ? 100 : 70,
   };
+  var data = config.data;
+  if (!data) data = [];
+  // var initQuestionsId = getRandomNumbers();
+  // // ! init questions for each type
+  // setQuestionsType1(prev => {
+  //   return initQuestionsId.map((item,index)=>{
+  //     {data: data.find(dataRow => dataRow[config.wordIndex]===item),
+
+  //     }
+  //   })
+  //   ;
+  // })
 
   function getCookie(name) {
     let cookieArray = document.cookie.split(";");
@@ -58,13 +70,32 @@ function BaiTapScreen(props) {
     return hanAndPunctuationRegex.test(char);
   }
 
-  function Onclick(type) {
-    const count = 100;
+  function getRandomNumbers() {
+    var randomIndices = [];
+    var baseRandomNumbers = [];
+    for (var i = 0; i < config.dataBaiTapRows; i++) {
+      baseRandomNumbers.push(i + 1);
+    }
+    for (var i = 0; i < config.soCauBaiTap; i++) {
+      var randomNumber = Math.floor(
+        Math.random() * (config.dataBaiTapRows - i)
+      );
+      randomIndices.push(baseRandomNumbers[randomNumber]);
+      baseRandomNumbers.splice(randomNumber, 1);
+      baseRandomNumbers.push(randomNumber);
+    }
+    return randomIndices;
+  }
+
+  function selectType(type) {
+    const count = config.soCauBaiTap;
+    setResult("");
     // Your logic here'
     var viewedWordList = JSON.parse(getCookie("viewedWordList"));
     var randomIndices = [];
     if (viewedWordList.length > count) {
       randomIndices = viewedWordList.slice(0, count);
+      // Update viewdWordList
       viewedWordList = viewedWordList.slice(count);
       var jsonStr = JSON.stringify(viewedWordList);
       document.cookie =
@@ -84,21 +115,37 @@ function BaiTapScreen(props) {
         new Date(Date.now() + 7 * 864e5).toUTCString() +
         "; path=/";
     }
-    while (randomIndices.length < count) {
-      const randomIndex = Math.floor(Math.random() * props.data.length + 1);
-      if (!randomIndices.includes(randomIndex)) {
-        randomIndices.push(randomIndex);
-      }
+    var randomIndex = 0;
+    var dataLength = data.length;
+
+    // var baseRandomNumbers = [];
+    // for (var i = 0; i < config.dataBaiTapRows; i++) {
+    //   baseRandomNumbers.push(i);
+    // }
+    // for (var i = 0; i < config.soCauBaiTap; i++) {
+    //   var randomNumber = Math.floor(
+    //     Math.random() * (config.dataBaiTapRows - i)
+    //   );
+    //   randomIndices.push(baseRandomNumbers[randomNumber]);
+    //   baseRandomNumbers.splice(randomNumber, 1);
+    //   baseRandomNumbers.push(randomNumber);
+    // }
+    randomIndices = getRandomNumbers();
+    console.log(randomIndices);
+
+    var dataRandom = [];
+    if (data.length > 0) {
+      randomIndices.map((index) =>
+        dataRandom.push(
+          data[parseInt(index) - 1] ? data[parseInt(index) - 1] : 0
+        )
+      );
     }
-    const dataRandom = randomIndices.map((index) =>
-      props.data[parseInt(index) - 1] ? props.data[parseInt(index) - 1] : 0
-    );
     setType(type);
     setCheck(false);
     setResponses([]);
     setQuestions(dataRandom);
   }
-
   const handleInputChange = (questionId, value) => {
     setResponses((prevResponses) => ({
       ...prevResponses,
@@ -113,306 +160,253 @@ function BaiTapScreen(props) {
       (q) => responses[q[0]] === q[Type * 2 + 1]
     );
     const score = correctAnswers.length;
-    alert(
+    setResult(
       `Bạn đã trả lời đúng ${score} trên tổng số ${questions.length} câu hỏi.`
     );
     setCheck(true);
+    window.scrollTo(0, 0);
   };
 
+  const Card = ({ children }) => {
+    var answered = false;
+    const answer = () => {
+      answered = true;
+    };
+
+    return (
+      <div className="mb-3 px-3">
+        <div className="b-darkBlue border-4 px-3 py-2">{children}</div>
+      </div>
+    );
+  };
 
   return (
     <>
       <div className="bg-white">
         <NavBarCpn config={config} />
-        <div className="mb-5 p-5"></div>
-        <div className="pt-2 pb-0"></div>
-        <div className="fluid-container mt-3 mx-4 px-3 mt-5">
-          <div className="text-center row">
-            <div style={{ fontSize: "70px" }}>
-              <div style={{ fontWeight: 700 }}>BÀI TẬP</div>
-            </div>
-            <div className="container">
-              <button
-                type="button"
-                className="col btn btn-primary mr-10"
-                onClick={() => Onclick(1)}
-              >
-                random Loại  1
-              </button>
-              <button
-                type="button"
-                className="col btn btn-primary mr-10"
-                onClick={() => Onclick(2)}
-              >
-                random Loại  2
-              </button>
-              <button
-                type="button"
-                className="col btn btn-primary mr-10"
-                onClick={() => Onclick(3)}
-              >
-                random Loại  3
-              </button>
-              <button
-                type="button"
-                className="col btn btn-primary mr-10"
-                onClick={() => Onclick(4)}
-              >
-                random Loại  4
-              </button>
+        <div style={{ height: config.headerHeight }}></div>
+        <div className="fluid-container mt-3 px-2 mt-5">
+          <div className="text-center pb-1">
+            <div className="fluid-container row text-white mx-0 px-1">
+              <div
+                className="col-lg-3 col-6 mb-1 px-1"
+                onClick={() => selectType(1)}>
+                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                  1. Điền phiên âm
+                </div>
+              </div>
+              <div
+                className="col-lg-3 col-6 mb-1 px-1"
+                onClick={() => selectType(2)}>
+                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                  2. Chọn nghĩa tương ứng
+                </div>
+              </div>
+              <div
+                className="col-lg-3 col-6 mb-1 px-1"
+                onClick={() => selectType(3)}>
+                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                  3. Chọn câu chữ Hán tương ứng
+                </div>
+              </div>
+              <div
+                className="col-lg-3 col-6 mb-1 px-1"
+                onClick={() => selectType(4)}>
+                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                  4. Phán đoán đúng sai
+                </div>
+              </div>
             </div>
           </div>
+          <div className="fw-bold text-center mb-1">{result}</div>
+          <div
+            className="overflow-auto border-top border-black"
+            style={{ maxHeight: config.showQuestionsHeight }}>
+            {Type === 1 && (
+              <div className="">
+                <form onSubmit={handleSubmit}>
+                  {questions.map((question, index) => (
+                    <Card>
+                      <div key={question[0]} className="">
+                        <div>
+                          {question[Type * 2] && (
+                            <div>
+                              {index + 1}.{" "}
+                              {question[Type * 2]
+                                .split("")
+                                .map((char, index) => (
+                                  <span
+                                    key={index}
+                                    style={
+                                      char === question[1] &&
+                                      index > 0 &&
+                                      (question[Type * 2][index - 1] === "(" ||
+                                        question[Type * 2][index - 1] === "（")
+                                        ? { color: "red", fontWeight: "bold" }
+                                        : { color: "inherit" }
+                                    }>
+                                    {char}
+                                  </span>
+                                ))}
+                            </div>
+                          )}
+                        </div>
 
-          {Type === 1 && (
-            <form onSubmit={handleSubmit}>
-              {questions.map((question, index) => (
+                        {Check ? (
+                          <div>
+                            {responses[question[0]] &&
+                            responses[question[0]] ===
+                              question[Type * 2 + 1] ? (
+                              <input
+                                style={{ backgroundColor: "#90EE90" }}
+                                type="text"
+                                name={`question_${question[0]}`}
+                                className="border border-1 border-black p-2  my-3"
+                                onChange={(e) =>
+                                  handleInputChange(question[0], e.target.value)
+                                }
+                                readOnly
+                              />
+                            ) : (
+                              <input
+                                style={{ backgroundColor: "#ffcccc" }}
+                                type="text"
+                                name={`question_${question[0]}`}
+                                className="border border-1 border-black p-2  my-3"
+                                // value={responses[question.id] || ''}
+                                onChange={(e) =>
+                                  handleInputChange(question[0], e.target.value)
+                                }
+                                readOnly
+                              />
+                            )}
 
-                <div key={question[0]}>
-                  <div>
-                    {question[Type * 2] && (
-
-                      <div>
-                          {index + 1}. {" "}
-                          {question[Type * 2].split("").map((char, index) => (
-                            <span
-                              key={index}
-                              style={
-                                char === question[1] &&
-                                index > 0 &&
-                                (question[Type * 2][index - 1] === "(" ||
-                                question[Type * 2][index - 1] === "（")
-                                  ? { color: "red", fontWeight: "bold" }
-                                  : { color: "inherit" }
+                            <div
+                              className="c-darkRed"
+                              style={{ fontWeight: "bold" }}>
+                              Đáp án : {question[Type * 2 + 1]}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <input
+                              type="text"
+                              name={`question_${question[0]}`}
+                              className=" border border-1 border-black p-2 mt-2"
+                              // value={responses[question.id] || ''}
+                              onChange={(e) =>
+                                handleInputChange(question[0], e.target.value)
                               }
-                            >
+                            />
+                            {/* <div>{question[Type * 2 + 1]} </div> */}
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                  {!Check && (
+                    <div className="text-center row mx-0 justify-content-center">
+                      <div className="col">
+                        <button
+                          type="submit"
+                          className="text-white fw-bold px-5 py-3 border-0 text-center rounded-0 mb-3 bg-darkBlue">
+                          Nộp bài
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </div>
+            )}
+
+            {Type === 2 && (
+              <form onSubmit={handleSubmit}>
+                {questions.map((question, index) => (
+                  <div style={{ marginBottom: "1em" }}>
+                    {" "}
+                    {/* Ensure the key is unique */}
+                    <Card>
+                      <div className="mb-2">
+                        {index + 1}.{" "}
+                        {getDataABCD(question[Type * 2])[0]
+                          .split("")
+                          .map((char, index) => (
+                            <span
+                              style={
+                                isHanCharacter(char)
+                                  ? { color: "inherit" }
+                                  : { color: "red", fontWeight: "bold" }
+                              }>
                               {char}
                             </span>
                           ))}
                       </div>
-                    )}
-                  </div>
+                      {getDataABCD(question[Type * 2])[1].map((option, i) =>
+                        Check &&
+                        responses[question[0]] &&
+                        responses[question[0]] ===
+                          String.fromCharCode(65 + i) ? (
+                          <div
+                            key={index}
+                            style={{ display: "flex", alignItems: "center" }}>
+                            {responses[question[0]] !==
+                            question[Type * 2 + 1] ? (
+                              <div style={{ color: "red" }}>
+                                <div style={{ marginRight: "0.5em" }}>
+                                  {String.fromCharCode(65 + i)}.
+                                </div>
+                                <label key={i}>
+                                  <input
+                                    key={i}
+                                    type="radio"
+                                    name={`question_${question[0]}`}
+                                    checked={true}
+                                    onChange={() =>
+                                      handleInputChange(
+                                        question[0],
+                                        String.fromCharCode(65 + i)
+                                      )
+                                    }
+                                  />
 
-                  {Check ? (
-                    <div>
-                      {responses[question[0]] &&
-                      responses[question[0]] === question[Type * 2 + 1] ? (
-                        <input
-                          style={{ backgroundColor: "#90EE90" }}
-                          type="text"
-                          name={`question_${question[0]}`}
-                          onChange={(e) =>
-                            handleInputChange(question[0], e.target.value)
-                          }
-                          readOnly
-                        />
-                      ) : (
-                        <input
-                          style={{ backgroundColor: "#ffcccc" }}
-                          type="text"
-                          name={`question_${question[0]}`}
-                          // value={responses[question.id] || ''}
-                          onChange={(e) =>
-                            handleInputChange(question[0], e.target.value)
-                          }
-                          readOnly
-                        />
-                      )}
+                                  {option}
+                                </label>
+                              </div>
+                            ) : (
+                              <div style={{ color: "green" }}>
+                                <div style={{ marginRight: "0.5em" }}>
+                                  {String.fromCharCode(65 + i)}.
+                                </div>
+                                <label key={i}>
+                                  <input
+                                    key={i}
+                                    type="radio"
+                                    name={`question_${question[0]}`}
+                                    checked={true}
+                                    onChange={() =>
+                                      handleInputChange(
+                                        question[0],
+                                        String.fromCharCode(65 + i)
+                                      )
+                                    }
+                                  />
 
-                      <div style={{ color: "red", fontWeight: "bold" }}>
-                        Đáp án : {question[Type * 2 + 1]}
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <input
-                        type="text"
-                        name={`question_${question[0]}`}
-                        // value={responses[question.id] || ''}
-                        onChange={(e) =>
-                          handleInputChange(question[0], e.target.value)
-                        }
-                      />
-                      <div>{question[Type * 2 + 1]} </div>
-                    </div>
-                  )}
-                </div>
-
-
-
-              ))}
-              {!Check && <button type="submit" class="btn btn-primary btn-lg btn-block">Nộp bài</button>}
-            </form>
-          )}
-
-{Type === 2 && (
-  <form onSubmit={handleSubmit}>
-    {questions.map((question, index) => (
-      <div  style={{ marginBottom: "1em" }}> {/* Ensure the key is unique */}
-
-        <div>
-            {index + 1}. {" "}
-            {getDataABCD(question[Type * 2])[0].split("").map((char, index) => (
-              <span 
-                style={
-                  isHanCharacter(char)
-                    ? { color: "inherit" }
-                    : { color: "red", fontWeight: "bold" }
-                }
-              >
-                {char}
-              </span>
-            ))}
-        </div>
-
-        {getDataABCD(question[Type * 2])[1].map((option, i) => (
-      
-      Check && responses[question[0]] && responses[question[0]] === String.fromCharCode(65 + i)
-      ?
-      (               
-        <div
-          key={index}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-            {responses[question[0]] !== question[Type * 2 + 1] ?
-            (
-              <div style={{  color: "red" }}>
-              <div style={{ marginRight: "0.5em"}}>
-                {String.fromCharCode(65 + i)}.
-              </div>
-                <label key={i}>
-                <input
-                  key={i}
-                  type="radio"
-                  name={`question_${question[0]}`}
-                  checked={true}
-                  onChange={() =>
-                    handleInputChange(
-                      question[0],
-                      String.fromCharCode(65 + i)
-                    )
-                  }
-                />
-
-                  {option}
-    
-                </label>
-              </div>
-
-            ):
-            (
-              <div style={{  color: "green" }}>
-              <div style={{ marginRight: "0.5em" }}>
-                {String.fromCharCode(65 + i)}.
-              </div>
-                <label key={i}>
-                <input
-                  key={i}
-                  type="radio"
-                  name={`question_${question[0]}`}
-                  checked={true}
-                  onChange={() =>
-                    handleInputChange(
-                      question[0],
-                      String.fromCharCode(65 + i)
-                    )
-                  }
-                />
-
-                  {option}
-
-                </label>
-              </div>
-
-            )
-            }
-
-
-        </div>
-      ):
-      (
-        <div
-          key={index}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <div style={{ marginRight: "0.5em" }}>
-
-            {String.fromCharCode(65 + i)}.
-          </div>
-          <label key={i}>
-            <input
-              type="radio"
-              name={`question_${question[0]}`}
-              onChange={() =>
-                handleInputChange(
-                  question[0],
-                  String.fromCharCode(65 + i)
-                )
-              }
-            />
-            {option}
-          </label>
-        </div>
-      )
-    ))}
-      </div>
-    ))}
-    {!Check && <button type="submit" class="btn btn-primary btn-lg btn-block">Nộp bài</button>}
-  </form>
-)}
-        
-          {Type === 3 && (
-            <form onSubmit={handleSubmit}>
-              {questions.map((question, index) => (
-                <div style={{ marginBottom: "1em" }}>
-                  <div>
-                    {index + 1}. {getDataABCD(question[Type * 2])[0]}
-                  </div>
-                  {getDataABCD(question[Type * 2])[1].map((option, i) => (
-                    
-                    Check && responses[question[0]] && responses[question[0]] === String.fromCharCode(65 + i)
-                    ?
-                    (               
-                      <div
-                        key={index}
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                          {responses[question[0]] !== question[Type * 2 + 1] ?
-                          (
-                            <div style={{  color: "red" }}>
-                            <div style={{ marginRight: "0.5em"}}>
-                              {String.fromCharCode(65 + i)}.
-                            </div>
-                              <label key={i}>
-                              <input
-                                key={i}
-                                type="radio"
-                                name={`question_${question[0]}`}
-                                checked={true}
-                                onChange={() =>
-                                  handleInputChange(
-                                    question[0],
-                                    String.fromCharCode(65 + i)
-                                  )
-                                }
-                              />
-             
-                                {option}
-                  
-                              </label>
-                            </div>
-  
-                          ):
-                          (
-                            <div style={{  color: "green" }}>
+                                  {option}
+                                </label>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div
+                            key={index}
+                            style={{ display: "flex", alignItems: "center" }}>
                             <div style={{ marginRight: "0.5em" }}>
                               {String.fromCharCode(65 + i)}.
                             </div>
-                              <label key={i}>
+                            <label key={i}>
                               <input
-                                key={i}
                                 type="radio"
                                 name={`question_${question[0]}`}
-                                checked={true}
                                 onChange={() =>
                                   handleInputChange(
                                     question[0],
@@ -420,120 +414,215 @@ function BaiTapScreen(props) {
                                   )
                                 }
                               />
-              
-                                {option}
-            
-                              </label>
-                            </div>
-  
-                          )
-                          }
+                              {option}
+                            </label>
+                          </div>
+                        )
+                      )}
+                    </Card>
+                  </div>
+                ))}
+                {!Check && (
+                  <div className="text-center row mx-0 justify-content-center">
+                    <div className="col">
+                      <button
+                        type="submit"
+                        className="text-white fw-bold px-5 py-3 border-0 text-center rounded-0 mb-3 bg-darkBlue">
+                        Nộp bài
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </form>
+            )}
 
-
+            {Type === 3 && (
+              <form onSubmit={handleSubmit}>
+                {questions.map((question, index) => (
+                  <div style={{ marginBottom: "1em" }}>
+                    <Card>
+                      <div className="mb-2">
+                        {index + 1}. {getDataABCD(question[Type * 2])[0]}
                       </div>
-                    ):
-                    (
-                      <div
-                        key={index}
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <div style={{ marginRight: "0.5em" }}>
+                      {getDataABCD(question[Type * 2])[1].map((option, i) =>
+                        Check &&
+                        responses[question[0]] &&
+                        responses[question[0]] ===
+                          String.fromCharCode(65 + i) ? (
+                          <div
+                            key={index}
+                            style={{ display: "flex", alignItems: "center" }}>
+                            {responses[question[0]] !==
+                            question[Type * 2 + 1] ? (
+                              <div style={{ color: "red" }}>
+                                <div style={{ marginRight: "0.5em" }}>
+                                  {String.fromCharCode(65 + i)}.
+                                </div>
+                                <label key={i}>
+                                  <input
+                                    key={i}
+                                    type="radio"
+                                    name={`question_${question[0]}`}
+                                    checked={true}
+                                    onChange={() =>
+                                      handleInputChange(
+                                        question[0],
+                                        String.fromCharCode(65 + i)
+                                      )
+                                    }
+                                  />
 
-                          {String.fromCharCode(65 + i)}.
+                                  {option}
+                                </label>
+                              </div>
+                            ) : (
+                              <div style={{ color: "green" }}>
+                                <div style={{ marginRight: "0.5em" }}>
+                                  {String.fromCharCode(65 + i)}.
+                                </div>
+                                <label key={i}>
+                                  <input
+                                    key={i}
+                                    type="radio"
+                                    name={`question_${question[0]}`}
+                                    checked={true}
+                                    onChange={() =>
+                                      handleInputChange(
+                                        question[0],
+                                        String.fromCharCode(65 + i)
+                                      )
+                                    }
+                                  />
+
+                                  {option}
+                                </label>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div
+                            key={index}
+                            style={{ display: "flex", alignItems: "center" }}>
+                            <div style={{ marginRight: "0.5em" }}>
+                              {String.fromCharCode(65 + i)}.
+                            </div>
+                            <label>
+                              <input
+                                type="radio"
+                                name={`question_${question[0]}`}
+                                onChange={() =>
+                                  handleInputChange(
+                                    question[0],
+                                    String.fromCharCode(65 + i)
+                                  )
+                                }
+                              />
+                              {option}
+                            </label>
+                          </div>
+                        )
+                      )}
+                    </Card>
+                  </div>
+                ))}
+                {!Check && (
+                  <div className="text-center row mx-0 justify-content-center">
+                    <div className="col">
+                      <button
+                        type="submit"
+                        className="text-white fw-bold px-5 py-3 border-0 text-center rounded-0 mb-3 bg-darkBlue">
+                        Nộp bài
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </form>
+            )}
+
+            {Type === 4 && (
+              <form onSubmit={handleSubmit}>
+                {questions.map((question, index) => (
+                  <div key={question[0]}>
+                    <Card>
+                      <div className="mb-1">
+                        {index + 1}.{" "}
+                        {question[Type * 2].split("").map((char, index) => (
+                          <span
+                            key={index}
+                            style={
+                              isHanCharacter(char)
+                                ? { color: "inherit" }
+                                : { color: "red", fontWeight: "bold" }
+                            }>
+                            {char}
+                          </span>
+                        ))}
+                      </div>
+
+                      {Check ? (
+                        <div>
+                          {responses[question[0]] &&
+                          responses[question[0]] === question[Type * 2 + 1] ? (
+                            <input
+                              style={{ backgroundColor: "#90EE90" }}
+                              type="text"
+                              className="p-2  my-3"
+                              name={`question_${question[0]}`}
+                              onChange={(e) =>
+                                handleInputChange(question[0], e.target.value)
+                              }
+                              readOnly
+                            />
+                          ) : (
+                            <input
+                              style={{ backgroundColor: "#ffcccc" }}
+                              type="text"
+                              name={`question_${question[0]}`}
+                              className="p-2  my-3"
+                              // value={responses[question.id] || ''}
+                              onChange={(e) =>
+                                handleInputChange(question[0], e.target.value)
+                              }
+                              readOnly
+                            />
+                          )}
+
+                          <div style={{ color: "red", fontWeight: "bold" }}>
+                            Đáp án : {question[Type * 2 + 1]}
+                          </div>
                         </div>
-                        <label>
+                      ) : (
+                        <div>
                           <input
-                            type="radio"
+                            type="text"
                             name={`question_${question[0]}`}
-                            onChange={() =>
-                              handleInputChange(
-                                question[0],
-                                String.fromCharCode(65 + i)
-                              )
+                            className="p-2  mt-2"
+                            // value={responses[question.id] || ''}
+                            onChange={(e) =>
+                              handleInputChange(question[0], e.target.value)
                             }
                           />
-                          {option}
-                        </label>
-                      </div>
-                    )
-                  ))}
-                </div>
-              ))}
-              {!Check && <button type="submit" class="btn btn-primary btn-lg btn-block">Nộp bài</button>}
-            </form>
-          )}
-
-          {Type === 4 && (
-            <form onSubmit={handleSubmit}>
-              {questions.map((question, index) => (
-                <div key={question[0]}>
-                  <div>
-                      {index + 1}. {" "}
-                      {question[Type * 2].split("").map((char, index) => (
-                        <span
-                          key={index}
-                          style={
-                            isHanCharacter(char)
-                              ? { color: "inherit" }
-                              : { color: "red", fontWeight: "bold" }
-                          }
-                        >
-                          {char}
-                        </span>
-                      ))}
-                  </div>
-
-                  {Check ? (
-                    <div>
-                      {responses[question[0]] &&
-                      responses[question[0]] === question[Type * 2 + 1] ? (
-                        <input
-                          style={{ backgroundColor: "#90EE90" }}
-                          type="text"
-                          name={`question_${question[0]}`}
-                          onChange={(e) =>
-                            handleInputChange(question[0], e.target.value)
-                          }
-                          readOnly
-                        />
-                      ) : (
-                        <input
-                          style={{ backgroundColor: "#ffcccc" }}
-                          type="text"
-                          name={`question_${question[0]}`}
-                          // value={responses[question.id] || ''}
-                          onChange={(e) =>
-                            handleInputChange(question[0], e.target.value)
-                          }
-                          readOnly
-                        />
+                          {/* <div>{question[Type * 2 + 1]} </div> */}
+                        </div>
                       )}
-
-                      <div style={{ color: "red", fontWeight: "bold" }}>
-                        Đáp án : {question[Type * 2 + 1]}
-                      </div>
+                    </Card>
+                  </div>
+                ))}
+                {!Check && (
+                  <div className="text-center row mx-0 justify-content-center">
+                    <div className="col">
+                      <button
+                        type="submit"
+                        className="text-white fw-bold px-5 py-3 border-0 text-center rounded-0 mb-3 bg-darkBlue">
+                        Nộp bài
+                      </button>
                     </div>
-                  ) : (
-                    <div>
-                      <input
-                        type="text"
-                        name={`question_${question[0]}`}
-                        // value={responses[question.id] || ''}
-                        onChange={(e) =>
-                          handleInputChange(question[0], e.target.value)
-                        }
-                      />
-                      <div>{question[Type * 2 + 1]} </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-              {!Check && <button type="submit" class="btn btn-primary btn-lg btn-block">Nộp bài</button>}
-            </form>
-          )}
-
-
+                  </div>
+                )}
+              </form>
+            )}
           </div>
+        </div>
       </div>
     </>
   );

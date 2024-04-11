@@ -41,7 +41,6 @@ function SoTayDetailScreen(props) {
 
   const tableData = data ? data.slice(config.amDoc_1_Index) : [];
   const rows = [];
-  console.log(data);
   function getCookie(name) {
     let cookieArray = document.cookie.split(";");
     for (let i = 0; i < cookieArray.length; i++) {
@@ -52,6 +51,7 @@ function SoTayDetailScreen(props) {
     }
     return null;
   }
+
   var viewedWordList = JSON.parse(getCookie("viewedWordList"));
   viewedWordList = viewedWordList ? viewedWordList : [];
   if (viewedWordList.find((element) => element === wordId)) {
@@ -70,6 +70,7 @@ function SoTayDetailScreen(props) {
   for (let i = 0; i < tableData.length; i += config.amDocLength) {
     rows.push(tableData.slice(i, i + config.amDocLength));
   }
+  console.log(rows);
 
   const handleClick = () => {
     console.log("clicked");
