@@ -174,36 +174,54 @@ function BaiTapScreen(props) {
         <div style={{ height: config.headerHeight }}></div>
         <div className="fluid-container mt-3 px-2 mt-5">
           <div className="text-center pb-1">
-            <div className="fluid-container row text-white mx-0 px-1">
+            <div style={{ fontSize: "70px" }}>
+              <div className="c-orange" style={{ fontWeight: 700 }}>DUOYIN</div>
+            </div>
+            <div className="c-darkBlue fw-bold text-center" style={{ fontSize: "50px" }}>
+              Bài tập
+            </div>
+            <div className="c-darkBlue fw-light fst-italic text-center" style={{ fontSize: "30px" }}>
+            Click vào một trong số các dạng bài tập dưới đây để bắt đầu
+            </div>
+
+          </div>
+          <div className="pb-1 px-5 mt-4">
+            <div className="fluid-container row text-white mx-5 px-5 justify-content-between">
               <div
-                className="col-lg-3 col-6 mb-1 px-1"
+                className="col-lg-5 col-10 mb-1 px-1"
                 onClick={() => selectType(1)}
               >
-                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                <div className={`fs-4 text-bold ${(Type == 1)?"bg-darkBlue":"bg-lightBlue"}  hover-darkBlue py-4 fw-bold ps-5 hover-mouse h-100 rounded-pill`}>
                   1. Điền phiên âm
                 </div>
               </div>
+            
               <div
-                className="col-lg-3 col-6 mb-1 px-1"
-                onClick={() => selectType(2)}
-              >
-                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
-                  2. Chọn nghĩa tương ứng
-                </div>
-              </div>
-              <div
-                className="col-lg-3 col-6 mb-1 px-1"
+                className="col-lg-5 col-10 mb-1 px-1"
                 onClick={() => selectType(3)}
               >
-                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                <div className={`fs-4 text-bold ${(Type == 3)?"bg-darkBlue":"bg-lightBlue"}  hover-darkBlue py-4 fw-bold ps-5 hover-mouse h-100 rounded-pill`}>
                   3. Chọn câu chữ Hán tương ứng
                 </div>
               </div>
+          
+            </div>
+            <div className="fluid-container row text-white mx-5 px-5 justify-content-between mt-2 mb-3">
+           
               <div
-                className="col-lg-3 col-6 mb-1 px-1"
+                className="col-lg-5 col-10 mb-1 px-1"
+                onClick={() => selectType(2)}
+              >
+                <div className={`fs-4 text-bold ${(Type == 2)?"bg-darkBlue":"bg-lightBlue"}  hover-darkBlue py-4 fw-bold ps-5 hover-mouse h-100 rounded-pill`}>
+                  2. Chọn nghĩa tương ứng
+                </div>
+              </div>
+             
+              <div
+                className="col-lg-5 col-10 mb-1 px-1"
                 onClick={() => selectType(4)}
               >
-                <div className="text-bold bg-darkBlue py-1 fw-bold px-4 hover-mouse h-100 centerEle">
+                <div className={`fs-4 text-bold ${(Type == 4)?"bg-darkBlue":"bg-lightBlue"}  hover-darkBlue py-4 fw-bold ps-5 hover-mouse h-100 rounded-pill`}>
                   4. Phán đoán đúng sai
                 </div>
               </div>
@@ -211,7 +229,7 @@ function BaiTapScreen(props) {
           </div>
           <div className="fw-bold text-center mb-1">{result}</div>
           <div
-            className="overflow-auto border-top border-black"
+            className="overflow-auto border-top border-black pt-4"
             style={{ maxHeight: config.showQuestionsHeight }}
           >
             {Type === 1 && (
@@ -219,7 +237,7 @@ function BaiTapScreen(props) {
                 <form onSubmit={handleSubmit}>
                   {questions.map((question, index) => (
                     <div className="mb-3 px-3">
-                      <div className="b-darkBlue border-4 px-3 py-2">
+                      <div className="b-darkBlue border-4 px-3 py-2 rounded">
                         <div key={question[0]} className="">
                           <div>
                             {question[Type * 2] && (
@@ -327,7 +345,7 @@ function BaiTapScreen(props) {
               <form onSubmit={handleSubmit}>
                 {questions.map((question, index) => (
                   <div className="mb-3 px-3">
-                    <div className="b-darkBlue border-4 px-3 py-2">
+                    <div className="b-darkBlue border-4 px-3 py-2 rounded">
                       <div style={{ marginBottom: "1em" }}>
                         {" "}
                         {/* Ensure the key is unique */}
@@ -455,7 +473,7 @@ function BaiTapScreen(props) {
               <form onSubmit={handleSubmit}>
                 {questions.map((question, index) => (
                   <div className="mb-3 px-3">
-                    <div className="b-darkBlue border-4 px-3 py-2">
+                    <div className="b-darkBlue border-4 px-3 py-2 rounded">
                       <div style={{ marginBottom: "1em" }}>
                         {" "}
                         {/* Ensure the key is unique */}
@@ -570,7 +588,7 @@ function BaiTapScreen(props) {
                 {questions.map((question, index) => (
                   <div key={question[0]}>
                     <div className="mb-3 px-3">
-                      <div className="b-darkBlue border-4 px-3 py-2">
+                      <div className="b-darkBlue border-4 px-3 py-2 rounded">
                         <div className="mb-1">
                           {index + 1}.{" "}
                           {question[Type * 2].split("").map((char, index) => (

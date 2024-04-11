@@ -3,6 +3,7 @@
 .hover-bigger1:hover{font-size: 2.2em}
 .hover-bigger:hover{font-size: 1.5em}
 .hover-mouse:hover{cursor: pointer}
+.hover-darkBlue:hover{background-color: #0B4875}
 /* !layout */
 .valign{vertical-align: middle;}
 .lh-20{line-height:2rem}
@@ -12,10 +13,13 @@
 
 .bg-darkRed{background-color: #D2373F}
 .bg-darkBlue{background-color: #0B4875}
+.bg-lightBlue{background-color: #84b2ce}
 .bigger1{font-size: 2.2em}
 .bigger{font-size: 1.5em}
 .c-darkRed{color: #D2373F}
 .c-darkBlue{color: #0B4875}
+.c-lightBlue{color: #84b2ce}
+.c-orange{color: #cf3700}
 
 .fs-20{font-size: 24px}
 
