@@ -8,7 +8,6 @@ import {
   Link,
 } from "react-router-dom";
 function SoTayScreen(props) {
-
   const config = {
     ...props.config,
     location: useLocation().pathname,
@@ -30,21 +29,18 @@ function SoTayScreen(props) {
     for (let i = 0; i < cookieArray.length; i++) {
       let cookiePair = cookieArray[i].split("=");
       if (name === cookiePair[0].trim()) {
-        console.log(cookiePair[1])
+        console.log(cookiePair[1]);
         return decodeURIComponent(cookiePair[1]);
       }
     }
     return null;
   }
   const [searchWord, setSearchWord] = useState("");
-  var viewedWordList =   JSON.parse(getCookie("viewedWordList"));
+  var viewedWordList = JSON.parse(getCookie("viewedWordList"));
   if (!viewedWordList) viewedWordList = [];
   var freshDataList = config.data.filter(
     (num) => !viewedWordList.includes(num[config.idIndex])
   );
-
-
-
 
   freshDataList = freshDataList.sort((a, b) =>
     a[config.amDoc_1_Index].localeCompare(b[config.amDoc_1_Index])
@@ -89,7 +85,7 @@ function SoTayScreen(props) {
         <div className="col-lg-10 col-12">
           <div
             className="row px-2 mx-0 col-12 
-            justify-content-between overflow-auto"
+            justify-content-start overflow-auto"
             style={{ maxHeight: config.showWordHeight }}>
             {viewedDataList
               .filter((data) => data[config.wordIndex].includes(searchWord))

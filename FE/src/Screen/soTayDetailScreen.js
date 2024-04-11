@@ -26,6 +26,7 @@ function SoTayDetailScreen(props) {
         const files = response.data.files;
         if (files && files.length > 0) {
           setWordGifLink(config.baseLinkDrive + files[0].id);
+          console.log(wordGifLink);
         } else {
           throw new Error("File not found.");
         }
@@ -73,6 +74,8 @@ function SoTayDetailScreen(props) {
   console.log(rows);
 
   const handleClick = () => {
+    const sound = document.getElementById("sound");
+    sound.play();
     console.log("clicked");
   };
   return (
@@ -87,7 +90,7 @@ function SoTayDetailScreen(props) {
                 <div className="fw-bold col" style={{ fontSize: "150px" }}>
                   <div className="container">
                     <img
-                      src={config.baseLinkDrive + data[3]}
+                      src={wordGifLink}
                       style={{ maxHeight: config.gifMaxSize }}
                     />
                   </div>
