@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Web-Ni-Hao/static/css/main.268428f6.css",
-    "main.js": "/Web-Ni-Hao/static/js/main.22e455f0.js",
+    "main.css": "/Web-Ni-Hao/static/css/main.2e2818ec.css",
+    "main.js": "/Web-Ni-Hao/static/js/main.ed99ab38.js",
     "static/js/453.5c3132bc.chunk.js": "/Web-Ni-Hao/static/js/453.5c3132bc.chunk.js",
     "static/media/trangChuBg.png": "/Web-Ni-Hao/static/media/trangChuBg.6d8a8a5f9e9170c711f9.png",
     "static/media/baiTap.png": "/Web-Ni-Hao/static/media/baiTap.f3200961ef9dc5178789.png",
@@ -9,12 +9,12 @@
     "static/media/video.png": "/Web-Ni-Hao/static/media/video.08997f54cd9b1a9fb996.png",
     "static/media/logo.png": "/Web-Ni-Hao/static/media/logo.edbd33662005340caccf.png",
     "index.html": "/Web-Ni-Hao/index.html",
-    "main.268428f6.css.map": "/Web-Ni-Hao/static/css/main.268428f6.css.map",
-    "main.22e455f0.js.map": "/Web-Ni-Hao/static/js/main.22e455f0.js.map",
+    "main.2e2818ec.css.map": "/Web-Ni-Hao/static/css/main.2e2818ec.css.map",
+    "main.ed99ab38.js.map": "/Web-Ni-Hao/static/js/main.ed99ab38.js.map",
     "453.5c3132bc.chunk.js.map": "/Web-Ni-Hao/static/js/453.5c3132bc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.268428f6.css",
-    "static/js/main.22e455f0.js"
+    "static/css/main.2e2818ec.css",
+    "static/js/main.ed99ab38.js"
   ]
 }
