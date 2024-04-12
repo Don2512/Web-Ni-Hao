@@ -1,7 +1,7 @@
 import NavBarCpn from "../Component/navBarCpn";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import { useLocation, Link } from "react-router-dom";
-
+import AudioButton from "../Component/audioBtn";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 
@@ -10,9 +10,9 @@ function SoTayDetailScreen(props) {
     ...props.config,
     location: useLocation().pathname,
     data: props.data,
-    headerHeight: window.innerWidth < 1000 ? 120 : 100,
+    headerHeight: window.innerWidth < 1000 ? 140 : 120,
     baseSideFontSize: window.innerWidth < 1000 ? "17px" : "26px",
-    gifMaxSize: window.innerWidth < 1000 ? "200px" : "300px",
+    gifMaxSize: window.innerWidth < 1000 ? "240px" : "350px",
   };
   const urlList = config.location.split("/");
   const wordId = urlList[urlList.length - 1];
@@ -26,6 +26,7 @@ function SoTayDetailScreen(props) {
         const files = response.data.files;
         if (files && files.length > 0) {
           setWordGifLink(config.baseLinkDrive + files[0].id);
+          console.log(wordGifLink);
         } else {
           throw new Error("File not found.");
         }
@@ -73,6 +74,8 @@ function SoTayDetailScreen(props) {
   console.log(rows);
 
   const handleClick = () => {
+    const sound = document.getElementById("sound");
+    sound.play();
     console.log("clicked");
   };
   return (
@@ -87,7 +90,7 @@ function SoTayDetailScreen(props) {
                 <div className="fw-bold col" style={{ fontSize: "150px" }}>
                   <div className="container">
                     <img
-                      src={config.baseLinkDrive + data[3]}
+                      src={wordGifLink}
                       style={{ maxHeight: config.gifMaxSize }}
                     />
                   </div>
@@ -105,7 +108,7 @@ function SoTayDetailScreen(props) {
                   </div>
                 </div>
               </div>
-              <div className="row mx-0">
+              <div className="row mx-0 mt-4">
                 <div className="container-fluid fs-5 text-start border border-black mx-0">
                   <div className="row">
                     <div className="border border-black col-lg-1 text-white fw-bold bg-darkRed col-4">
@@ -132,10 +135,7 @@ function SoTayDetailScreen(props) {
                         {index + 1}
                       </div>
                       <div className="border border-black col-lg-1 col-4">
-                        <div onClick={() => handleClick(index)}>
-                          <i className="bi bi-volume-up-fill"></i>
-                          {item[0]}
-                        </div>
+                        <AudioButton content={item[0]} wordId= {wordId} index = {index}></AudioButton>
                       </div>
                       <div className="border border-black col-lg-1 col-4">
                         {item[1]}

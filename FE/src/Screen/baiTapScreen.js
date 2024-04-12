@@ -174,8 +174,8 @@ function BaiTapScreen(props) {
         <div style={{ height: config.headerHeight }}></div>
         <div className="fluid-container mt-3 px-2 mt-5">
           <div className="text-center pb-1">
-            <div style={{ fontSize: "70px" }}>
-              <div className="c-orange" style={{ fontWeight: 700 }}>DUOYIN</div>
+            <div style={{ fontSize: "90px" }}>
+              <div className="c-lightRed  position-relative z-index-5" style={{ fontWeight: 700 }}>DUOYIN</div>
             </div>
             <div className="c-darkBlue fw-bold text-center" style={{ fontSize: "50px" }}>
               Bài tập
@@ -183,6 +183,8 @@ function BaiTapScreen(props) {
             <div className="c-darkBlue fw-light fst-italic text-center" style={{ fontSize: "30px" }}>
             Click vào một trong số các dạng bài tập dưới đây để bắt đầu
             </div>
+            
+            
 
           </div>
           <div className="pb-1 px-5 mt-4">

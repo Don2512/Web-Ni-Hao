@@ -14,11 +14,13 @@
 .bg-darkRed{background-color: #D2373F}
 .bg-darkBlue{background-color: #0B4875}
 .bg-lightBlue{background-color: #84b2ce}
+.bg-lightRed{background-color: rgba(210, 55, 63, 0.7)}
 .bigger1{font-size: 2.2em}
 .bigger{font-size: 1.5em}
 .c-darkRed{color: #D2373F}
 .c-darkBlue{color: #0B4875}
 .c-lightBlue{color: #84b2ce}
+.c-lightRed{color: #963c4f}
 .c-orange{color: #cf3700}
 
 .fs-20{font-size: 24px}
@@ -26,6 +28,7 @@
 .b-darkBlue {border: 1px solid #0B4875}
 .b-darkRed {border-color: #D2373F}
 .b-gray {border-color: gray}
+
 .centerEle {
     display: flex;
     justify-content: center;

@@ -8,7 +8,6 @@ import {
   Link,
 } from "react-router-dom";
 function SoTayScreen(props) {
-
   const config = {
     ...props.config,
     location: useLocation().pathname,
@@ -18,7 +17,7 @@ function SoTayScreen(props) {
   };
   const Card = ({ children, className }) => {
     return (
-      <div className="card mb-3 mx-0 rounded-0 shadow-sm border-0">
+      <div className="card mb-3 mx-0 rounded shadow-sm border-0">
         <div className={"card-body " + className}>
           <p className="card-text text-center">{children}</p>
         </div>
@@ -30,21 +29,18 @@ function SoTayScreen(props) {
     for (let i = 0; i < cookieArray.length; i++) {
       let cookiePair = cookieArray[i].split("=");
       if (name === cookiePair[0].trim()) {
-        console.log(cookiePair[1])
+        console.log(cookiePair[1]);
         return decodeURIComponent(cookiePair[1]);
       }
     }
     return null;
   }
   const [searchWord, setSearchWord] = useState("");
-  var viewedWordList =   JSON.parse(getCookie("viewedWordList"));
+  var viewedWordList = JSON.parse(getCookie("viewedWordList"));
   if (!viewedWordList) viewedWordList = [];
   var freshDataList = config.data.filter(
     (num) => !viewedWordList.includes(num[config.idIndex])
   );
-
-
-
 
   freshDataList = freshDataList.sort((a, b) =>
     a[config.amDoc_1_Index].localeCompare(b[config.amDoc_1_Index])
@@ -64,7 +60,7 @@ function SoTayScreen(props) {
   };
   console.log(window.innerWidth);
   return (
-    <div className="bg-darkRed mh-100">
+    <div className="bg-lightRed mh-100" >
       <NavBarCpn config={config} />
       <div style={{ height: config.headerHeight }}></div>
       <div className="fluid-container mt-3 mx-4 px-3 mt-5">
@@ -74,12 +70,13 @@ function SoTayScreen(props) {
           </div>
           <input
             type="text"
-            className="shadow-sm p-3 mb-5 bg-white rounded-0 border-0 col-lg-8 col-md-8 col-sm-12 text-center"
+            className=" p-3 mb-5 bg-white border-0 col-lg-8 col-md-8 col-sm-12 text-center rounded"
             placeholder="Nhập từ cần tìm"
             style={{
               transform: "translate(-50%,0)",
               position: "relative",
               left: "50%",
+              outline: "none",
             }}
             onChange={(event) => handleSearch(event)}
           />
@@ -89,14 +86,14 @@ function SoTayScreen(props) {
         <div className="col-lg-10 col-12">
           <div
             className="row px-2 mx-0 col-12 
-            justify-content-between overflow-auto"
+            justify-content-start overflow-auto"
             style={{ maxHeight: config.showWordHeight }}>
             {viewedDataList
               .filter((data) => data[config.wordIndex].includes(searchWord))
               .map((item, index) => (
                 <Link
                   to={`${config.location}/${item[config.idIndex]}`}
-                  className="col-md-2 col-lg-1 col-3 hover-bold hover-bigger2 hover-mouse lh-20 valign px-1 fs-20"
+                  className="rounded col-md-2 col-lg-1 col-3 hover-bold hover-bigger2 hover-mouse lh-20 valign px-1 fs-20"
                   style={{ maxWidth: "180px", textDecoration: "none" }}
                   key={index - 1}>
                   <Card className="bg-darkBlue text-white">
@@ -110,7 +107,7 @@ function SoTayScreen(props) {
                 <Link
                   onClick={() => handleClick()}
                   to={`${config.location}/${item[config.idIndex]}`}
-                  className="col-md-2 col-lg-1 col-3 hover-bold hover-bigger2 hover-mouse lh-20 valign px-1 fs-20"
+                  className="rounded col-md-2 col-lg-1 col-3 hover-bold hover-bigger2 hover-mouse lh-20 valign px-1 fs-20"
                   style={{ maxWidth: "180px", textDecoration: "none" }}
                   key={index - 1}>
                   <Card className="">{item[config.wordIndex]}</Card>

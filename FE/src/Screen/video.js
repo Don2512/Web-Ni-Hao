@@ -11,7 +11,7 @@ function VideoScreen(props) {
   const config = {
     ...props.config,
     location: useLocation().pathname,
-    headerHeight: window.innerWidth < 1000 ? 200 : 200,
+    headerHeight: window.innerWidth < 1000 ? 120 : 120,
     titleSize: window.innerWidth < 1000 ? "50px" : "90px",
     subTitleSize: window.innerWidth < 1000 ? "17px" : "50px",
     subSubTitleSize: window.innerWidth < 1000 ? "13px" : "17px",
@@ -35,12 +35,12 @@ function VideoScreen(props) {
       <div style={{ height: config.headerHeight }}></div>
       <div className="text-center pb-5">
         <div
-          className="c-darkRed text-center fw-bold"
+          className="c-lightRed text-center fw-bold"
           style={{ fontSize: config.titleSize }}>
           DUOYIN
         </div>
         <div
-          className="c-darkBlue fw-bold text-center"
+          className="c-darkBlue fw-bold text-center "
           style={{ fontSize: config.subTitleSize }}>
           VIDEO PHÂN BIỆT CÁC ÂM ĐỌC CỦA CHỮ
         </div>
@@ -58,7 +58,7 @@ function VideoScreen(props) {
                     className=" bg-darkBlue 
                     p-4 my-3 text-white 
                     hover-mouse hover-bigger hover-bold lh-20
-                    shadow"
+                    shadow rounded-pill"
                     style={{ height: config.imgHeight, fontSize: "18px" }}
                     onClick={() => {
                       window.open(item.link, "_blank");
