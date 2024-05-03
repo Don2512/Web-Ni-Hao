@@ -26,7 +26,7 @@ function TrangChuScreen(props) {
           style={{ width: "100%", height: config.imgMaxHeight }}
           alt="Logo"
         />
-        <div>ABC</div>
+        <div>XYZ</div>
       </div>
     </div>
   );
