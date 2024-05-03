@@ -21,7 +21,7 @@ function TongQuanScreen(props) {
     imgHeight: screenWidth < 1000 ? "130px" : "300px",
   };
   return (
-    <div className="bg-darkRed container-fluid px-0 text-white">
+    <div className="bg-lightRed container-fluid px-0 text-white">
       <NavBarCpn config={config} />
       <div style={{ height: config.headerHeight }}></div>
       <div
